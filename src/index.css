@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --primary-accent: #4f46e5;
+  --primary-accent-hover: #4338ca;
+  --primary-accent-subtle: rgba(79, 70, 229, 0.1);
+  --primary-accent-border: rgba(79, 70, 229, 0.25);
+}
+
+/* Dynamic Accent Themes */
+html[data-theme-accent="emerald"] {
+  --primary-accent: #059669;
+  --primary-accent-hover: #047857;
+  --primary-accent-subtle: rgba(5, 150, 105, 0.1);
+  --primary-accent-border: rgba(5, 150, 105, 0.25);
+}
+
+html[data-theme-accent="amber"] {
+  --primary-accent: #d97706;
+  --primary-accent-hover: #b45309;
+  --primary-accent-subtle: rgba(217, 119, 6, 0.1);
+  --primary-accent-border: rgba(217, 119, 6, 0.25);
+}
+
+html[data-theme-accent="cyan"] {
+  --primary-accent: #0891b2;
+  --primary-accent-hover: #0e7490;
+  --primary-accent-subtle: rgba(8, 145, 178, 0.1);
+  --primary-accent-border: rgba(8, 145, 178, 0.25);
+}
+
+html[data-theme-accent="rose"] {
+  --primary-accent: #e11d48;
+  --primary-accent-hover: #be123c;
+  --primary-accent-subtle: rgba(225, 29, 72, 0.1);
+  --primary-accent-border: rgba(225, 29, 72, 0.25);
+}
+
+html[data-theme-accent="violet"] {
+  --primary-accent: #7c3aed;
+  --primary-accent-hover: #6d28d9;
+  --primary-accent-subtle: rgba(124, 58, 237, 0.1);
+  --primary-accent-border: rgba(124, 58, 237, 0.25);
+}
+
+/* Pure AMOLED Black mode */
+html.dark.oled-black,
+html.dark.oled-black body,
+html.dark.oled-black #root {
+  background-color: #000000 !important;
+}
+
+html.dark.oled-black .dark\:bg-slate-950,
+html.dark.oled-black .dark\:bg-slate-900 {
+  background-color: #050505 !important;
+}
+
+html.dark.oled-black .dark\:bg-slate-900\/95 {
+  background-color: rgba(5, 5, 5, 0.95) !important;
+}
+
+html.dark.oled-black .dark\:bg-slate-800,
+html.dark.oled-black .dark\:bg-slate-800\/80,
+html.dark.oled-black .dark\:bg-slate-800\/60 {
+  background-color: #0d0d12 !important;
+}
+
+html.dark.oled-black .dark\:border-slate-800,
+html.dark.oled-black .dark\:border-slate-700 {
+  border-color: #1a1a24 !important;
+}

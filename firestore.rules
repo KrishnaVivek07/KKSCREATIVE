@@ -1,0 +1,95 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwnerEmail() {
+      return isSignedIn() && (
+        !exists(/databases/$(database)/documents/users/$(request.auth.uid)) ||
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'owner'
+      );
+    }
+    
+    function isOwner() {
+      return isOwnerEmail();
+    }
+    
+    function isUserSelf(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read, write: if true;
+    }
+
+    // Customers collection (Managed by Owner)
+    match /customers/{customerId} {
+      allow read, write: if true;
+    }
+
+    // Projects collection
+    match /projects/{projectId} {
+      allow read, write: if true;
+    }
+
+    // Components catalog
+    match /components/{componentId} {
+      allow read, write: if true;
+    }
+
+    // Project components
+    match /projectComponents/{projectComponentId} {
+      allow read, write: if true;
+    }
+
+    // Billing records
+    match /billing/{billingId} {
+      allow read, write: if true;
+    }
+
+    // Digital Diary
+    match /diaryEntries/{diaryId} {
+      allow read, write: if true;
+    }
+
+    // File metadata
+    match /files/{fileId} {
+      allow read, write: if true;
+    }
+
+    // Design versions
+    match /designVersions/{designId} {
+      allow read, write: if true;
+    }
+
+    // Tasks / Checklist
+    match /tasks/{taskId} {
+      allow read, write: if true;
+    }
+
+    // Customer Access permissions
+    match /customerAccess/{accessId} {
+      allow read, write: if true;
+    }
+
+    // AI Conversations
+    match /aiConversations/{convoId} {
+      allow read, write: if true;
+    }
+
+    // Connection test doc
+    match /test/{testId} {
+      allow read, write: if true;
+    }
+
+    // Default deny for unspecified paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

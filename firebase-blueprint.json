@@ -1,0 +1,290 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and role metadata",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["owner", "customer"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "email", "role"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Workshop client profile",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "company": { "type": "string" },
+        "address": { "type": "string" },
+        "notes": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "ownerId"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "Workshop engineering project",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "customerId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "description": { "type": "string" },
+        "projectType": { "type": "string" },
+        "startDate": { "type": "string" },
+        "expectedCompletionDate": { "type": "string" },
+        "status": { "type": "string", "enum": ["planned", "in_progress", "testing", "completed", "on_hold"] },
+        "priority": { "type": "string", "enum": ["low", "medium", "high", "urgent"] },
+        "budget": { "type": "number" },
+        "coverImage": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "progress": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "ownerId", "status"]
+    },
+    "Component": {
+      "title": "Component",
+      "description": "Electronics and hardware component catalog item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "manufacturer": { "type": "string" },
+        "modelNumber": { "type": "string" },
+        "description": { "type": "string" },
+        "referencePrice": { "type": "number" },
+        "currency": { "type": "string" },
+        "supplier": { "type": "string" },
+        "sourceUrl": { "type": "string" },
+        "datasheetUrl": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "notes": { "type": "string" },
+        "lastUpdatedDate": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "category", "referencePrice", "ownerId"]
+    },
+    "ProjectComponent": {
+      "title": "ProjectComponent",
+      "description": "Component allocated to a specific project",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "componentId": { "type": "string" },
+        "name": { "type": "string" },
+        "quantity": { "type": "number" },
+        "unitPrice": { "type": "number" },
+        "customPrice": { "type": "number" },
+        "total": { "type": "number" },
+        "isCustom": { "type": "boolean" },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "projectId", "name", "quantity", "unitPrice", "total", "ownerId"]
+    },
+    "Billing": {
+      "title": "Billing",
+      "description": "Invoice and billing record for a project",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "invoiceNumber": { "type": "string" },
+        "customerId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "componentCost": { "type": "number" },
+        "labourCost": { "type": "number" },
+        "designCost": { "type": "number" },
+        "otherExpenses": { "type": "number" },
+        "subtotal": { "type": "number" },
+        "discount": { "type": "number" },
+        "taxRate": { "type": "number" },
+        "taxAmount": { "type": "number" },
+        "grandTotal": { "type": "number" },
+        "currency": { "type": "string" },
+        "status": { "type": "string", "enum": ["draft", "sent", "paid"] },
+        "notes": { "type": "string" },
+        "dueDate": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "projectId", "invoiceNumber", "grandTotal", "ownerId"]
+    },
+    "DiaryEntry": {
+      "title": "DiaryEntry",
+      "description": "Project log or diary update",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "date": { "type": "string" },
+        "author": { "type": "string" },
+        "visibility": { "type": "string", "enum": ["PRIVATE", "CUSTOMER_VISIBLE"] },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "projectId", "title", "description", "visibility", "ownerId"]
+    },
+    "ProjectFile": {
+      "title": "ProjectFile",
+      "description": "File metadata attached to a project",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "fileName": { "type": "string" },
+        "fileType": { "type": "string" },
+        "fileSize": { "type": "number" },
+        "storagePath": { "type": "string" },
+        "downloadUrl": { "type": "string" },
+        "uploadedBy": { "type": "string" },
+        "uploadDate": { "type": "string" },
+        "visibility": { "type": "string", "enum": ["PRIVATE", "CUSTOMER_VISIBLE"] },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "projectId", "fileName", "visibility", "ownerId"]
+    },
+    "DesignVersion": {
+      "title": "DesignVersion",
+      "description": "Hardware/CAD design revision in Design Studio",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "title": { "type": "string" },
+        "versionNumber": { "type": "string" },
+        "notes": { "type": "string" },
+        "dimensions": { "type": "string" },
+        "materials": { "type": "string" },
+        "componentsList": { "type": "string" },
+        "cadFileUrl": { "type": "string" },
+        "previewImageUrl": { "type": "string" },
+        "externalToolUrl": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "projectId", "title", "versionNumber", "ownerId"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "Checklist item for progress computation",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "priority": { "type": "string", "enum": ["low", "medium", "high"] },
+        "dueDate": { "type": "string" },
+        "assignedUser": { "type": "string" },
+        "completed": { "type": "boolean" },
+        "completedDate": { "type": "string" },
+        "customerVisible": { "type": "boolean" },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "projectId", "title", "completed", "ownerId"]
+    },
+    "CustomerAccess": {
+      "title": "CustomerAccess",
+      "description": "Customer project access grant",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "customerEmail": { "type": "string" },
+        "projectId": { "type": "string" },
+        "projectName": { "type": "string" },
+        "grantedBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "customerEmail", "projectId", "grantedBy"]
+    },
+    "AiConversation": {
+      "title": "AiConversation",
+      "description": "Gemini AI assistant chat message history",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "assistant"] },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "ownerId": { "type": "string" }
+      },
+      "required": ["id", "projectId", "role", "text", "ownerId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and roles"
+    },
+    "/customers/{customerId}": {
+      "schema": "Customer",
+      "description": "Customer contact registry"
+    },
+    "/projects/{projectId}": {
+      "schema": "Project",
+      "description": "Engineering projects"
+    },
+    "/components/{componentId}": {
+      "schema": "Component",
+      "description": "Workshop electronics components inventory"
+    },
+    "/projectComponents/{projectComponentId}": {
+      "schema": "ProjectComponent",
+      "description": "Components allocated to specific projects"
+    },
+    "/billing/{billingId}": {
+      "schema": "Billing",
+      "description": "Project billing records and invoices"
+    },
+    "/diaryEntries/{diaryId}": {
+      "schema": "DiaryEntry",
+      "description": "Project logs and engineering diary entries"
+    },
+    "/files/{fileId}": {
+      "schema": "ProjectFile",
+      "description": "Project files and technical documentation metadata"
+    },
+    "/designVersions/{designId}": {
+      "schema": "DesignVersion",
+      "description": "CAD and hardware design revisions"
+    },
+    "/tasks/{taskId}": {
+      "schema": "Task",
+      "description": "Project checklist and progress tracking tasks"
+    },
+    "/customerAccess/{accessId}": {
+      "schema": "CustomerAccess",
+      "description": "Access permissions for customers to view shared projects"
+    },
+    "/aiConversations/{conversationId}": {
+      "schema": "AiConversation",
+      "description": "AI assistance message logs"
+    }
+  }
+}
